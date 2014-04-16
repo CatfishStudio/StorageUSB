@@ -1,0 +1,8 @@
+C:\Users\Catfish\Desktop\Актуальные задания\Защита информации\StorageUSB\bin\Debug\StorageUSB.exe
+C:\Users\Catfish\Desktop\Актуальные задания\Защита информации\StorageUSB\bin\Debug\StorageUSB.pdb
+C:\Users\Catfish\Desktop\Актуальные задания\Защита информации\StorageUSB\obj\Debug\StorageUSB.csprojResolveAssemblyReference.cache
+C:\Users\Catfish\Desktop\Актуальные задания\Защита информации\StorageUSB\obj\Debug\StorageUSB.MainForm.resources
+C:\Users\Catfish\Desktop\Актуальные задания\Защита информации\StorageUSB\obj\Debug\StorageUSB.csproj.GenerateResource.Cache
+C:\Users\Catfish\Desktop\Актуальные задания\Защита информации\StorageUSB\obj\Debug\StorageUSB.exe
+C:\Users\Catfish\Desktop\Актуальные задания\Защита информации\StorageUSB\obj\Debug\StorageUSB.pdb
+C:\Users\Catfish\Desktop\Актуальные задания\Защита информации\StorageUSB\bin\Debug\USBClassLibrary.dll
