@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using USBClassLibrary;
+using MadWizard.WinUSBNet;
 
 namespace StorageUSB
 {
@@ -23,11 +24,11 @@ namespace StorageUSB
 		private USBClassLibrary.USBClass USBPort;
 		/* Объявите экземпляр класса DeviceProperties, если вы хотите, чтобы прочитать свойства ваших устройств. */
 		private USBClassLibrary.USBClass.DeviceProperties USBDeviceProperties;
-		/* Флаг подключения устройства */
-		private bool MyUSBDeviceConnected;
 		
-		private const uint MyDeviceVID = 0X04D8; //Microchip ICD2 VID
-        private const uint MyDevicePID = 0X8001; //Microchip ICD2 PID
+		// [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\KnownDevices]
+		// USB\VID_05AC&PID_129E&REV_0410 (iPod4)
+		private const uint MyDeviceVID = 0X05AC; //добавлено 0Х...
+        private const uint MyDevicePID = 0X129E; //добавлено 0Х...
         
 		public MainForm()
 		{
@@ -44,16 +45,18 @@ namespace StorageUSB
 			// Добавьте обработчики для событий, предоставляемых классом USBClass.
 			USBPort.USBDeviceAttached += new USBClass.USBDeviceEventHandler(USBPort_USBDeviceAttached);
 			USBPort.USBDeviceRemoved += new USBClass.USBDeviceEventHandler(USBPort_USBDeviceRemoved);
-			
+						
 			// Зарегистрируйте форму для приема сообщений Windows, когда устройства добавляются или удаляются.
 			USBPort.RegisterForDeviceChange(true, this.Handle);
 			
 			// Затем проверьте, если ваше устройство не подключено:
+			/*
 			if (USBClass.GetUSBDevice(MyDeviceVID, MyDevicePID, ref USBDeviceProperties, false))
 			{
    				// Мое устройство подключено
    				MyUSBDeviceConnected = true;
 			}
+			*/
 		}
 		
 		
@@ -62,35 +65,24 @@ namespace StorageUSB
 		void MainFormLoad(object sender, EventArgs e)
 		{
 			
-			
 		}
 		
 		/* Реализация присоединение и отсоединение устройств: */
 		private void USBPort_USBDeviceAttached(object sender, USBClass.USBDeviceEventArgs e)
 		{
-			label1.Text = "Устройство подключено!";
-   			/*
-			if (!MyUSBDeviceConnected)
-   			{
-      			if (USBClass.GetUSBDevice(MyDeviceVID, MyDevicePID, ref USBDeviceProperties, false))
-      			{
-        			// Мое устройство подключено
-        			MyUSBDeviceConnected = true;
-         		}
-   			}
-   			*/
-		}
+			this.Visible = true;
+			label1.Text = "Подключено устройство к USB порту! " + e.Cancel.ToString()  + System.Environment.NewLine + "В данное время устройство недоступно, сделать его доступным?";
+			if (USBClass.GetUSBDevice(MyDeviceVID, MyDevicePID, ref USBDeviceProperties, false))
+			{
+				MessageBox.Show(USBDeviceProperties.FriendlyName.ToString());
+				
+			}
+			
+   		}
 
 		private void USBPort_USBDeviceRemoved(object sender, USBClass.USBDeviceEventArgs e)
 		{
-			label1.Text = "Устройство отключено!";
-			/*
-      		if (!USBClass.GetUSBDevice(MyDeviceVID, MyDevicePID, ref USBDeviceProperties, false))
-   			{
-      			// Мое устройство отключено
-      			MyUSBDeviceConnected = false;
-      		}
-      		*/
+			label1.Text = "USB Устройство отключено!";
 		}
 		
 		protected override void WndProc(ref Message m)
@@ -102,5 +94,20 @@ namespace StorageUSB
    			base.WndProc(ref m);
 		}
 		
+		
+		void MainFormShown(object sender, EventArgs e)
+		{
+			this.Visible = false;
+		}
+		
+		void ЗакрытьПрограммуToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			Application.Exit();
+		}
+		
+		void Button1Click(object sender, EventArgs e)
+		{
+			
+		}
 	}
 }

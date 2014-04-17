@@ -24,3 +24,5 @@ C:\GIT\StorageUSB\obj\Debug\StorageUSB.MainForm.resources
 C:\GIT\StorageUSB\obj\Debug\StorageUSB.csproj.GenerateResource.Cache
 C:\GIT\StorageUSB\obj\Debug\GuardUSB.exe
 C:\GIT\StorageUSB\obj\Debug\GuardUSB.pdb
+C:\GIT\StorageUSB\bin\Debug\WinUSBNet.dll
+C:\GIT\StorageUSB\bin\Debug\WinUSBNet.xml

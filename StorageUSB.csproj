@@ -60,6 +60,9 @@
     <Reference Include="USBClassLibrary">
       <HintPath>USBClassLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="WinUSBNet">
+      <HintPath>WinUSBNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs" />
