@@ -65,11 +65,12 @@ namespace StorageUSB
 			
 		}
 		
-		/* Реализация Присоединение и отсоединение обработчиков: */
+		/* Реализация присоединение и отсоединение устройств: */
 		private void USBPort_USBDeviceAttached(object sender, USBClass.USBDeviceEventArgs e)
 		{
 			label1.Text = "Устройство подключено!";
-   			if (!MyUSBDeviceConnected)
+   			/*
+			if (!MyUSBDeviceConnected)
    			{
       			if (USBClass.GetUSBDevice(MyDeviceVID, MyDevicePID, ref USBDeviceProperties, false))
       			{
@@ -77,16 +78,19 @@ namespace StorageUSB
         			MyUSBDeviceConnected = true;
          		}
    			}
+   			*/
 		}
 
 		private void USBPort_USBDeviceRemoved(object sender, USBClass.USBDeviceEventArgs e)
 		{
 			label1.Text = "Устройство отключено!";
+			/*
       		if (!USBClass.GetUSBDevice(MyDeviceVID, MyDevicePID, ref USBDeviceProperties, false))
    			{
       			// Мое устройство отключено
       			MyUSBDeviceConnected = false;
       		}
+      		*/
 		}
 		
 		protected override void WndProc(ref Message m)

@@ -6,3 +6,21 @@ C:\Users\Catfish\Desktop\Актуальные задания\Защита инф
 C:\Users\Catfish\Desktop\Актуальные задания\Защита информации\StorageUSB\obj\Debug\StorageUSB.exe
 C:\Users\Catfish\Desktop\Актуальные задания\Защита информации\StorageUSB\obj\Debug\StorageUSB.pdb
 C:\Users\Catfish\Desktop\Актуальные задания\Защита информации\StorageUSB\bin\Debug\USBClassLibrary.dll
+C:\Documents and Settings\ADMIN\Рабочий стол\StorageUSB-master\bin\Debug\USBClassLibrary.dll
+C:\Documents and Settings\ADMIN\Рабочий стол\StorageUSB-master\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\ADMIN\Рабочий стол\StorageUSB-master\obj\Debug\StorageUSB.MainForm.resources
+C:\Documents and Settings\ADMIN\Рабочий стол\StorageUSB-master\obj\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\ADMIN\Рабочий стол\StorageUSB-master\obj\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\ADMIN\Рабочий стол\StorageUSB-master\obj\Debug\GenerateResource.read.4.tlog
+C:\Documents and Settings\ADMIN\Рабочий стол\StorageUSB-master\bin\Debug\GuardUSB.exe
+C:\Documents and Settings\ADMIN\Рабочий стол\StorageUSB-master\bin\Debug\GuardUSB.pdb
+C:\Documents and Settings\ADMIN\Рабочий стол\StorageUSB-master\obj\Debug\GuardUSB.exe
+C:\Documents and Settings\ADMIN\Рабочий стол\StorageUSB-master\obj\Debug\GuardUSB.pdb
+C:\GIT\StorageUSB\bin\Debug\GuardUSB.exe
+C:\GIT\StorageUSB\bin\Debug\GuardUSB.pdb
+C:\GIT\StorageUSB\bin\Debug\USBClassLibrary.dll
+C:\GIT\StorageUSB\obj\Debug\StorageUSB.csprojResolveAssemblyReference.cache
+C:\GIT\StorageUSB\obj\Debug\StorageUSB.MainForm.resources
+C:\GIT\StorageUSB\obj\Debug\StorageUSB.csproj.GenerateResource.Cache
+C:\GIT\StorageUSB\obj\Debug\GuardUSB.exe
+C:\GIT\StorageUSB\obj\Debug\GuardUSB.pdb
