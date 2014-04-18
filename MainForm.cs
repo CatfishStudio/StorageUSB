@@ -9,9 +9,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Diagnostics;
+using Microsoft.Win32;
 using USBClassLibrary;
-using MadWizard.WinUSBNet;
 
 namespace StorageUSB
 {
@@ -22,14 +24,8 @@ namespace StorageUSB
 	{
 		/* Объявите экземпляр USBClass. */
 		private USBClassLibrary.USBClass USBPort;
-		/* Объявите экземпляр класса DeviceProperties, если вы хотите, чтобы прочитать свойства ваших устройств. */
-		private USBClassLibrary.USBClass.DeviceProperties USBDeviceProperties;
+		private bool DeviceConnect = false;
 		
-		// [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\KnownDevices]
-		// USB\VID_05AC&PID_129E&REV_0410 (iPod4)
-		private const uint MyDeviceVID = 0X05AC; //добавлено 0Х...
-        private const uint MyDevicePID = 0X129E; //добавлено 0Х...
-        
 		public MainForm()
 		{
 			//
@@ -39,8 +35,6 @@ namespace StorageUSB
 			
 			// Создайте экземпляр класса USBClass.
 			USBPort = new USBClass();
-			// Создайте экземпляр класса DeviceProperties.
-			USBDeviceProperties = new USBClass.DeviceProperties(); 
 			
 			// Добавьте обработчики для событий, предоставляемых классом USBClass.
 			USBPort.USBDeviceAttached += new USBClass.USBDeviceEventHandler(USBPort_USBDeviceAttached);
@@ -49,40 +43,118 @@ namespace StorageUSB
 			// Зарегистрируйте форму для приема сообщений Windows, когда устройства добавляются или удаляются.
 			USBPort.RegisterForDeviceChange(true, this.Handle);
 			
-			// Затем проверьте, если ваше устройство не подключено:
-			/*
-			if (USBClass.GetUSBDevice(MyDeviceVID, MyDevicePID, ref USBDeviceProperties, false))
-			{
-   				// Мое устройство подключено
-   				MyUSBDeviceConnected = true;
-			}
-			*/
+			
 		}
 		
+		private void USB_getStatus()
+        {
+
+            RegistryKey key;
+            try
+            {
+                key = Registry.LocalMachine.OpenSubKey
+                        ("SYSTEM\\CurrentControlSet\\Control\\StorageDevicePolicies");
+
+                if (System.Convert.ToInt16(key.GetValue("WriteProtect", null)) == 1)
+                	label1.Text = "USB порту только для чтения! ";
+				else
+                    label1.Text = "USB порту всё разрешено! ";
+            }
+            catch (NullReferenceException )
+            {
+                key = Registry.LocalMachine.OpenSubKey
+                        ("SYSTEM\\CurrentControlSet\\Control", true);
+                key.CreateSubKey("StorageDevicePolicies");
+                key.Close();
+            }
+            catch (Exception) { }
+            try
+            {
+                key = Registry.LocalMachine.OpenSubKey
+                ("SYSTEM\\CurrentControlSet\\Services\\UsbStor");
+
+                if (System.Convert.ToInt16(key.GetValue("Start", null)) == 4)
+                {
+                    label1.Text = "USB порту заблокирован! ";
+                    return;
+                }
+            }
+            catch (NullReferenceException )
+            {
+                key = Registry.LocalMachine.OpenSubKey
+                ("SYSTEM\\CurrentControlSet\\Services", true);
+                key.CreateSubKey("USBSTOR");
+
+                key = Registry.LocalMachine.OpenSubKey
+                ("SYSTEM\\CurrentControlSet\\Services\\UsbStor", true);
+
+                key.SetValue("Type", 1, RegistryValueKind.DWord);
+                key.SetValue("Start", 3, RegistryValueKind.DWord);
+                key.SetValue
+                    ("ImagePath", "system32\\drivers\\usbstor.sys", RegistryValueKind.ExpandString);
+                key.SetValue("ErrorControl", 1, RegistryValueKind.DWord);
+                key.SetValue
+                    ("DisplayName", "USB Mass Storage Driver", RegistryValueKind.String);
+
+                key.Close();
+            }
+            
+           catch( Exception ) {}
+
+        }
+        
 		
-		
+		/* БЛОКИРОВКА USB ПОРТА */
+		private void USB_disableAllStorageDevices()
+        {
+            RegistryKey key = Registry.LocalMachine.OpenSubKey
+                ("SYSTEM\\CurrentControlSet\\Services\\UsbStor",true);
+            if (key != null)
+            {
+                key.SetValue("Start", 4, RegistryValueKind.DWord);
+            }
+            key.Close();
+        }
+        
+		/* РАЗБЛОКИРОВКА USB ПОРТА */
+		private void USB_enableAllStorageDevices()
+        {
+            RegistryKey key = Registry.LocalMachine.OpenSubKey
+                ("SYSTEM\\CurrentControlSet\\Services\\UsbStor", true);
+            if (key != null)
+            {
+                key.SetValue("Start", 3, RegistryValueKind.DWord);
+            }
+            key.Close();
+        }
+        
 		
 		void MainFormLoad(object sender, EventArgs e)
 		{
-			
+			// Блокировка USB Порта
+			USB_getStatus();
 		}
 		
 		/* Реализация присоединение и отсоединение устройств: */
 		private void USBPort_USBDeviceAttached(object sender, USBClass.USBDeviceEventArgs e)
 		{
-			this.Visible = true;
-			label1.Text = "Подключено устройство к USB порту! " + e.Cancel.ToString()  + System.Environment.NewLine + "В данное время устройство недоступно, сделать его доступным?";
-			if (USBClass.GetUSBDevice(MyDeviceVID, MyDevicePID, ref USBDeviceProperties, false))
-			{
-				MessageBox.Show(USBDeviceProperties.FriendlyName.ToString());
-				
+			if(!DeviceConnect){
+				DeviceConnect = true;
+				this.Visible = true;
+				USB_getStatus();
+				label1.Text = label1.Text + System.Environment.NewLine + "USB устройство подключено!";
+				// блокировать USB порт
+				USB_disableAllStorageDevices();
+				USBPort_USBDeviceRemoved(null, new USBClass.USBDeviceEventArgs());
 			}
-			
    		}
 
 		private void USBPort_USBDeviceRemoved(object sender, USBClass.USBDeviceEventArgs e)
 		{
-			label1.Text = "USB Устройство отключено!";
+			//USB_enableAllStorageDevices();
+			USB_getStatus();
+			label1.Text = label1.Text + System.Environment.NewLine + "USB Устройство отключено!";
+			DeviceConnect = false;
 		}
 		
 		protected override void WndProc(ref Message m)
@@ -107,7 +179,25 @@ namespace StorageUSB
 		
 		void Button1Click(object sender, EventArgs e)
 		{
-			
+			// разблокировать USB устройство
+			USB_enableAllStorageDevices();
+			USB_getStatus();
+			USBPort_USBDeviceRemoved(null, new USBClass.USBDeviceEventArgs());
+			MessageBox.Show("USB устройство разблокированно!");
+		}
+		
+		void Button2Click(object sender, EventArgs e)
+		{
+			// блокировать USB стройство
+			USB_disableAllStorageDevices();
+			USB_getStatus();
+			USBPort_USBDeviceRemoved(null, new USBClass.USBDeviceEventArgs());
+			MessageBox.Show("USB устройство заблокированно!");
+		}
+		
+		void РазблокироватьUSBПортToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			this.Visible = true;			
 		}
 	}
 }

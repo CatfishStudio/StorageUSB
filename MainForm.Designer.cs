@@ -41,6 +41,7 @@ namespace StorageUSB
 			this.label1 = new System.Windows.Forms.Label();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.разблокироватьUSBПортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.закрытьПрограммуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.label2 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -75,9 +76,17 @@ namespace StorageUSB
 			// contextMenuStrip1
 			// 
 			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.разблокироватьUSBПортToolStripMenuItem,
 									this.закрытьПрограммуToolStripMenuItem});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(187, 26);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(187, 70);
+			// 
+			// разблокироватьUSBПортToolStripMenuItem
+			// 
+			this.разблокироватьUSBПортToolStripMenuItem.Name = "разблокироватьUSBПортToolStripMenuItem";
+			this.разблокироватьUSBПортToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.разблокироватьUSBПортToolStripMenuItem.Text = "Guard USB.";
+			this.разблокироватьUSBПортToolStripMenuItem.Click += new System.EventHandler(this.РазблокироватьUSBПортToolStripMenuItemClick);
 			// 
 			// закрытьПрограммуToolStripMenuItem
 			// 
@@ -124,21 +133,22 @@ namespace StorageUSB
 			// button2
 			// 
 			this.button2.ForeColor = System.Drawing.Color.Black;
-			this.button2.Location = new System.Drawing.Point(369, 89);
+			this.button2.Location = new System.Drawing.Point(323, 89);
 			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(75, 23);
+			this.button2.Size = new System.Drawing.Size(121, 23);
 			this.button2.TabIndex = 3;
-			this.button2.Text = "нет.";
+			this.button2.Text = "Блокировать.";
 			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.Button2Click);
 			// 
 			// button1
 			// 
 			this.button1.ForeColor = System.Drawing.Color.Black;
-			this.button1.Location = new System.Drawing.Point(288, 89);
+			this.button1.Location = new System.Drawing.Point(189, 89);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.Size = new System.Drawing.Size(128, 23);
 			this.button1.TabIndex = 2;
-			this.button1.Text = "Да.";
+			this.button1.Text = "Разблокировать.";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.Button1Click);
 			// 
@@ -173,6 +183,7 @@ namespace StorageUSB
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.ToolStripMenuItem разблокироватьUSBПортToolStripMenuItem;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.ToolStripMenuItem закрытьПрограммуToolStripMenuItem;
