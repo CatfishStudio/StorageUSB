@@ -49,6 +49,7 @@ namespace StorageUSB
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.button3 = new System.Windows.Forms.Button();
 			this.contextMenuStrip1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -72,6 +73,7 @@ namespace StorageUSB
 			this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
 			this.notifyIcon1.Text = "Сторож USB портов.";
 			this.notifyIcon1.Visible = true;
+			this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon1MouseDoubleClick);
 			// 
 			// contextMenuStrip1
 			// 
@@ -79,20 +81,20 @@ namespace StorageUSB
 									this.разблокироватьUSBПортToolStripMenuItem,
 									this.закрытьПрограммуToolStripMenuItem});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(187, 70);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(190, 48);
 			// 
 			// разблокироватьUSBПортToolStripMenuItem
 			// 
 			this.разблокироватьUSBПортToolStripMenuItem.Name = "разблокироватьUSBПортToolStripMenuItem";
-			this.разблокироватьUSBПортToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-			this.разблокироватьUSBПортToolStripMenuItem.Text = "Guard USB.";
+			this.разблокироватьUSBПортToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+			this.разблокироватьUSBПортToolStripMenuItem.Text = "Сторож USB портов.";
 			this.разблокироватьUSBПортToolStripMenuItem.Click += new System.EventHandler(this.РазблокироватьUSBПортToolStripMenuItemClick);
 			// 
 			// закрытьПрограммуToolStripMenuItem
 			// 
 			this.закрытьПрограммуToolStripMenuItem.Name = "закрытьПрограммуToolStripMenuItem";
-			this.закрытьПрограммуToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-			this.закрытьПрограммуToolStripMenuItem.Text = "Закрыть программу";
+			this.закрытьПрограммуToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+			this.закрытьПрограммуToolStripMenuItem.Text = "Закрыть программу.";
 			this.закрытьПрограммуToolStripMenuItem.Click += new System.EventHandler(this.ЗакрытьПрограммуToolStripMenuItemClick);
 			// 
 			// label2
@@ -109,6 +111,7 @@ namespace StorageUSB
 			// groupBox1
 			// 
 			this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+			this.groupBox1.Controls.Add(this.button3);
 			this.groupBox1.Controls.Add(this.groupBox2);
 			this.groupBox1.ForeColor = System.Drawing.Color.White;
 			this.groupBox1.Location = new System.Drawing.Point(12, 6);
@@ -162,6 +165,17 @@ namespace StorageUSB
 			this.pictureBox1.TabIndex = 1;
 			this.pictureBox1.TabStop = false;
 			// 
+			// button3
+			// 
+			this.button3.ForeColor = System.Drawing.Color.Black;
+			this.button3.Location = new System.Drawing.Point(408, 330);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(75, 23);
+			this.button3.TabIndex = 3;
+			this.button3.Text = "Выход.";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.Button3Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,13 +190,13 @@ namespace StorageUSB
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Guard USB v 1.0";
 			this.Load += new System.EventHandler(this.MainFormLoad);
-			this.Shown += new System.EventHandler(this.MainFormShown);
 			this.contextMenuStrip1.ResumeLayout(false);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.ToolStripMenuItem разблокироватьUSBПортToolStripMenuItem;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Button button2;

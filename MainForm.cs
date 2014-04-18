@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.ComponentModel;
 using Microsoft.Win32;
 using USBClassLibrary;
 
@@ -32,7 +33,9 @@ namespace StorageUSB
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
+			this.Closing += new CancelEventHandler(this.MainFormClosing);
 			
+						
 			// Создайте экземпляр класса USBClass.
 			USBPort = new USBClass();
 			
@@ -44,6 +47,18 @@ namespace StorageUSB
 			USBPort.RegisterForDeviceChange(true, this.Handle);
 			
 			
+		}
+		
+		void MainFormLoad(object sender, EventArgs e)
+		{
+			// Блокировка USB Порта
+			USB_getStatus();
+		}
+		
+		void MainFormClosing(object sender, CancelEventArgs e)
+		{
+			e.Cancel = true;
+			this.Visible = false;
 		}
 		
 		private void USB_getStatus()
@@ -129,12 +144,6 @@ namespace StorageUSB
         }
         
 		
-		void MainFormLoad(object sender, EventArgs e)
-		{
-			// Блокировка USB Порта
-			USB_getStatus();
-		}
-		
 		/* Реализация присоединение и отсоединение устройств: */
 		private void USBPort_USBDeviceAttached(object sender, USBClass.USBDeviceEventArgs e)
 		{
@@ -143,15 +152,17 @@ namespace StorageUSB
 				this.Visible = true;
 				USB_getStatus();
 				label1.Text = label1.Text + System.Environment.NewLine + "USB устройство подключено!";
-				// блокировать USB порт
-				USB_disableAllStorageDevices();
-				USBPort_USBDeviceRemoved(null, new USBClass.USBDeviceEventArgs());
+				
+				if(MessageBox.Show("Попытка подключения USB устройства!" + System.Environment.NewLine + "Длокировать доступное устройство?", "", MessageBoxButtons.YesNo) == DialogResult.Yes){
+					// блокировать USB порт
+					USB_disableAllStorageDevices();
+					USB_getStatus();
+				}
 			}
    		}
 
 		private void USBPort_USBDeviceRemoved(object sender, USBClass.USBDeviceEventArgs e)
 		{
-			//USB_enableAllStorageDevices();
 			USB_getStatus();
 			label1.Text = label1.Text + System.Environment.NewLine + "USB Устройство отключено!";
 			DeviceConnect = false;
@@ -166,11 +177,6 @@ namespace StorageUSB
    			base.WndProc(ref m);
 		}
 		
-		
-		void MainFormShown(object sender, EventArgs e)
-		{
-			this.Visible = false;
-		}
 		
 		void ЗакрытьПрограммуToolStripMenuItemClick(object sender, EventArgs e)
 		{
@@ -198,6 +204,16 @@ namespace StorageUSB
 		void РазблокироватьUSBПортToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			this.Visible = true;			
+		}
+		
+		void NotifyIcon1MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			this.Visible = true;				
+		}
+		
+		void Button3Click(object sender, EventArgs e)
+		{
+			Application.Exit();
 		}
 	}
 }

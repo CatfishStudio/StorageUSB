@@ -24,8 +24,6 @@ C:\GIT\StorageUSB\obj\Debug\StorageUSB.MainForm.resources
 C:\GIT\StorageUSB\obj\Debug\StorageUSB.csproj.GenerateResource.Cache
 C:\GIT\StorageUSB\obj\Debug\GuardUSB.exe
 C:\GIT\StorageUSB\obj\Debug\GuardUSB.pdb
-C:\GIT\StorageUSB\bin\Debug\WinUSBNet.dll
-C:\GIT\StorageUSB\bin\Debug\WinUSBNet.xml
 C:\Users\Catfish\Documents\ВНУ\Ответы\[4-й курс (2)]\Защита информации\Исходник\obj\Debug\StorageUSB.csprojResolveAssemblyReference.cache
 C:\Users\Catfish\Documents\ВНУ\Ответы\[4-й курс (2)]\Защита информации\Исходник\obj\Debug\StorageUSB.MainForm.resources
 C:\Users\Catfish\Documents\ВНУ\Ответы\[4-й курс (2)]\Защита информации\Исходник\obj\Debug\StorageUSB.csproj.GenerateResource.Cache
