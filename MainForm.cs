@@ -1,12 +1,4 @@
-﻿/*
- * Сделано в SharpDevelop.
- * Пользователь: Catfish
- * Дата: 16.04.2014
- * Время: 9:47
- * 
- * Для изменения этого шаблона используйте Сервис | Настройка | Кодирование | Правка стандартных заголовков.
- */
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
